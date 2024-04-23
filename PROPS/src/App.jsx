@@ -1,16 +1,22 @@
 
 import './App.css'
-import Student from './component/student'
+// import Student from './component/student'
  
-function App() {
 
-  return (
-    <>
-    <Student name="Bibek Pandey" age="19" studies="BSc.Computing"/>
-    <Student name="Bikash Pandey" age="16.5" studies="Pharmacy"/>
+function App (){
 
-    </>
-  )
+
+return (
+
+  <>
+  <h1>Playing with react</h1>
+  <h2>Lets use props</h2>
+  </>
+  
+)
+
+
 }
 
 export default App
+
