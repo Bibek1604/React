@@ -4,14 +4,10 @@ import './App.css';
 function App() {
   const [counter, setCounter] = useState(0);
 
-  if (counter == 20){
-    break;
-  }
 
-  function addValue() {
-    console.log("Clicked", counter);
-    setCounter(counter + 1);
-  }
+function addValue(){
+ setCounter(counter+1) 
+}
 
   function removeValue() {
     setCounter(counter - 1);
