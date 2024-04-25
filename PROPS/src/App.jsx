@@ -5,10 +5,7 @@ import Card  from './component/card'
  
 
 function App (){
-let myObj ={
-  username :"hero",
-  desc: "here's the intro of this girl"
-}
+
 
 return (
 
