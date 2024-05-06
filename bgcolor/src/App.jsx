@@ -1,5 +1,5 @@
 
-import { useCallback, useState ,useEffect } from 'react'
+import { useCallback, useState ,useEffect,useRef } from 'react'
 import './App.css'
 
 function App() {
@@ -28,7 +28,14 @@ function App() {
     passwordGenerator()
   },[length,numberAllowed,charAllowed,passwordGenerator])
 
+  const passwordRef=useRef(null)
 
+  const copyPassword=useCallback(() =>{
+    passwordRef.current?.select()
+    passwordRef.current?.setSelectionRange(0,100);
+    window.navigator.clipboard.writeText(password)
+    alert("your password has been copied")
+  },[password])
   return (
     <>
 <div className="min-h-screen flex justify-center items-center bg-gray-200">
@@ -43,9 +50,11 @@ function App() {
           className="outline-none py-1 px-3 flex-grow"
           placeholder="password"
           readOnly
+          ref={passwordRef}
         />
       </div>
       <button
+      onClick={copyPassword}
         className='outline-none bg-blue-700 text-white px-3 py-1 rounded'
       >
         Copy
