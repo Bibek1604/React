@@ -1,8 +1,32 @@
 
-import { useState } from 'react'
+import { useCallback, useState ,useEffect } from 'react'
 import './App.css'
 
 function App() {
+  const[length,setLength ]=useState(8)
+  const[numberAllowed,setNumberAllowed]=useState(false)
+  const[charAllowed,setCharAllowed]=useState(false)
+  const[password,setPassword]=useState("")
+
+  const passwordGenerator =useCallback(() =>{
+    let pass=""
+    let str="ABCDEFGHIJKLMNNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
+    if(numberAllowed) str +="0123456789"
+    if(charAllowed) str += "!@#$%^&*(){[<>?/]}"
+
+    for(let i=1; i <= length; i++){
+      let char = Math.floor(Math.random()*str.length+1)
+      pass += str.charAt(char)
+      
+    }
+    setPassword(pass )
+
+  } ,[length, numberAllowed, charAllowed, setPassword])
+
+  useEffect (()=> {
+    passwordGenerator()
+  },[length,numberAllowed,charAllowed,passwordGenerator])
 
 
   return (
@@ -15,7 +39,7 @@ function App() {
         <span></span>
         <input
           type="text"
-          value=" Enter your password here" // add {password} here
+          value={password} // add {password} here
           className="outline-none py-1 px-3 flex-grow"
           placeholder="password"
           readOnly
@@ -32,28 +56,36 @@ function App() {
       <div className='flex items-center gap-x-3'>
         <input
           type='range'
-          min={6}
+          min={10}
           max={100}
           value={length}
           className='cursor-pointer'
+                    onChange={(e)=>{setLength(e.target.value)}}
         />
-        <label>length: 8</label>
+        <label>length: {length} </label>
       </div>
       <div className="flex items-center gap-x-3">
         <input
           type="checkbox"
-          id="includeCharacter"
-          className="cursor-pointer"
+          defaultChecked={numberAllowed}
+          id="numberInput"
+          onChange={() =>{
+            setNumberAllowed((prev) => !prev);
+          }}
         />
-        <label to="includeCharacter">Include Characters</label>
+        <label to="numberInput">Numbers</label>
       </div>
       <div className="flex items-center gap-x-3">
         <input
           type="checkbox"
-          id="includeNumber"
+          defaultChecked={charAllowed}
+          id="charAllowed"
+          onChange={() =>{
+            setCharAllowed((prev) => !prev);
+          }}
           className="cursor-pointer"
         />
-        <label to="includeNumber">Include Numbers</label>
+        <label to="charAllowed">Character</label>
       </div>
     </div>
 
